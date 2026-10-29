@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Portofolio Pribadi</title>
+<meta name="description" content="Portofolio pribadi: profil, keahlian, proyek, dan kontak.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   LAYOUT: satu kolom, hero besar di atas, lalu bagian
+   berurutan. Warna dan font diatur dari token di :root.
+   ========================================================= */
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --fg: #111318;
+  --muted: #5b606b;
+  --line: #d9d7cf;
+  --accent: #3a5bff;
+  --accent-fg: #ffffff;
+
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12;
+    --surface: #141821;
+    --fg: #eceef3;
+    --muted: #9aa1b0;
+    --line: #262c39;
+    --accent: #8fa2ff;
+    --accent-fg: #0b0d12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12;
+  --surface: #141821;
+  --fg: #eceef3;
+  --muted: #9aa1b0;
+  --line: #262c39;
+  --accent: #8fa2ff;
+  --accent-fg: #0b0d12;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap { max-width: 920px; margin: 0 auto; }
+
+/* Navigasi */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-block: 14px;
+  flex-wrap: wrap;
+}
+.nav-links { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+.nav-links a { color: var(--muted); text-decoration: none; }
+.nav-links a:hover { color: var(--fg); }
+.brand { font-family: var(--font-display); font-weight: 700; color: var(--fg); text-decoration: none; }
+.theme-btn {
+  background: none; border: 1px solid var(--line); color: var(--fg);
+  border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer;
+}
+
+/* Hero */
+.hero { padding-block: 72px 56px; }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; color: var(--accent); letter-spacing: .04em; }
+.hero h1 { font-size: clamp(34px, 7vw, 60px); font-weight: 800; margin-top: 12px; letter-spacing: -.02em; }
+.hero .role { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); margin-top: 14px; max-width: 60ch; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
+  padding: 11px 20px; border-radius: 10px; border: 1px solid var(--accent);
+}
+.btn.primary { background: var(--accent); color: var(--accent-fg); }
+.btn.ghost { color: var(--accent); }
+
+/* Bagian umum */
+section { padding-block: 48px; border-top: 1px solid var(--line); }
+.section-title { font-size: 26px; font-weight: 700; margin-bottom: 24px; }
+.section-title small { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-weight: 400; margin-bottom: 6px; letter-spacing: .04em; }
+
+.about p + p { margin-top: 14px; }
+.about p { color: var(--fg); max-width: 68ch; }
+
+/* Keahlian */
+.skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--font-mono); font-size: 13px;
+  border: 1px solid var(--line); background: var(--surface);
+  padding: 6px 12px; border-radius: 999px;
+}
+
+/* Proyek */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
+}
+.card h3 { font-size: 19px; }
+.card .meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.card p { color: var(--muted); font-size: 15px; }
+.card .links { margin-top: auto; padding-top: 6px; display: flex; gap: 14px; font-size: 14px; flex-wrap: wrap; }
+
+/* Pengalaman */
+.timeline { display: flex; flex-direction: column; gap: 18px; }
+.item { display: grid; grid-template-columns: minmax(0, 150px) 1fr; gap: 6px 20px; }
+.item .when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.item h3 { font-size: 17px; }
+.item p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+@media (max-width: 560px) { .item { grid-template-columns: 1fr; } }
+
+/* Kontak */
+.contact-list { display: flex; flex-direction: column; gap: 10px; font-size: 16px; }
+.contact-list span { color: var(--muted); font-family: var(--font-mono); font-size: 13px; display: inline-block; width: 90px; }
+.contact-list a { word-break: break-all; }
+
+footer { border-top: 1px solid var(--line); padding-block: 24px; font-size: 13px; color: var(--muted); }
+
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: transform .15s ease, border-color .15s ease; }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="brand" href="#top" id="brand"></a>
+    <div class="nav-links" id="nav-links"></div>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Ganti tema">Tema</button>
+  </nav>
+
+  <header class="hero" id="top">
+    <p class="eyebrow" id="hero-eyebrow"></p>
+    <h1 id="hero-name"></h1>
+    <p class="role" id="hero-role"></p>
+    <div class="cta-row" id="hero-cta"></div>
+  </header>
+
+  <section id="about">
+    <h2 class="section-title"><small>01 / TENTANG</small>Tentang saya</h2>
+    <div class="about" id="about-text"></div>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title"><small>02 / KEAHLIAN</small>Keahlian</h2>
+    <div class="skills" id="skills-list"></div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title"><small>03 / PROYEK</small>Proyek</h2>
+    <div class="grid" id="projects-list"></div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title"><small>04 / PENGALAMAN</small>Pengalaman</h2>
+    <div class="timeline" id="experience-list"></div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title"><small>05 / KONTAK</small>Kontak</h2>
+    <div class="contact-list" id="contact-list"></div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/* =========================================================
+   ISI PORTOFOLIO: ubah teks di bawah ini saja.
+   - name, role, about, skills, projects, experience, contact
+     semua dibaca dari sini, tidak perlu mengubah HTML.
+   - Tambah proyek: salin satu blok { ... } lalu beri koma.
+   - Kosongkan link ("") jika tidak ingin ditampilkan.
+   ========================================================= */
+const CONFIG = {
+  name: "Rangga Wisnu Saputra",
+  shortName: "Rangga",
+  eyebrow: "Hi, i'm Rangga Wisnu Saputra",
+  role: "Fullstack Developer dengan minat pada pengalaman web interaktif dan 3D WebGL.",
+  heroButtons: [
+    { label: "Lihat proyek", href: "#projects", primary: true },
+    { label: "Hubungi saya", href: "#contact", primary: false }
+  ],
+  about: [
+    "Tulis di sini perkenalan singkat tentang diri kamu: latar belakang, apa yang sedang dipelajari, dan jenis pekerjaan yang ingin dikerjakan.",
+    "Paragraf kedua bisa berisi cara kerja kamu, misalnya bagaimana kamu memecahkan masalah atau hal yang kamu pedulikan dalam membuat produk."
+  ],
+  skills: [
+    "HTML & CSS", "JavaScript", "TypeScript", "React", "Node.js", "PHP", "MySQL", "Three.js", "WebGL", "Git"
+  ],
+  projects: [
+    {
+      title: "Nama Proyek 1",
+      year: "2026",
+      tags: "Web · Fullstack",
+      description: "Jelaskan proyek ini dalam satu sampai dua kalimat: masalah apa yang diselesaikan dan apa peranmu.",
+      demo: "https://example.com",
+      repo: "https://github.com/"
+    },
+    {
+      title: "Nama Proyek 2",
+      year: "2025",
+      tags: "3D · WebGL",
+      description: "Contoh proyek visual interaktif. Ganti dengan proyek nyata kamu.",
+      demo: "",
+      repo: "https://github.com/"
+    },
+    {
+      title: "Nama Proyek 3",
+      year: "2025",
+      tags: "Aplikasi",
+      description: "Contoh aplikasi web. Tambahkan hasil atau dampaknya bila ada.",
+      demo: "https://example.com",
+      repo: ""
+    }
+  ],
+  experience: [
+    { when: "2025 — sekarang", role: "Posisi / Peran", place: "Nama Perusahaan atau Organisasi", detail: "Tuliskan tanggung jawab atau pencapaian utama dalam satu kalimat." },
+    { when: "2023 — 2025", role: "Posisi Sebelumnya", place: "Nama Tempat", detail: "Contoh pengalaman, magang, atau proyek kelompok." }
+  ],
+  contact: [
+    { label: "Email", value: "email@contoh.com", href: "mailto:email@contoh.com" },
+    { label: "GitHub", value: "github.com/username", href: "https://github.com/" },
+    { label: "LinkedIn", value: "linkedin.com/in/username", href: "https://linkedin.com/" }
+  ],
+  footer: "© " + new Date().getFullYear() + " — dibuat sendiri dengan HTML, CSS, dan JavaScript."
+};
+
+/* ---------- render (tidak perlu diubah) ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const $ = id => document.getElementById(id);
+
+function render() {
+  try {
+    $("brand").textContent = CONFIG.shortName;
+    $("nav-links").innerHTML = ["about|Tentang","skills|Keahlian","projects|Proyek","experience|Pengalaman","contact|Kontak"]
+      .map(p => { const [id, label] = p.split("|"); return `<a href="#${id}">${label}</a>`; }).join("");
+
+    $("hero-eyebrow").textContent = CONFIG.eyebrow;
+    $("hero-name").textContent = CONFIG.name;
+    $("hero-role").textContent = CONFIG.role;
+    $("hero-cta").innerHTML = CONFIG.heroButtons.map(b =>
+      `<a class="btn ${b.primary ? "primary" : "ghost"}" href="${esc(b.href)}">${esc(b.label)}</a>`).join("");
+
+    $("about-text").innerHTML = CONFIG.about.map(t => `<p>${esc(t)}</p>`).join("");
+    $("skills-list").innerHTML = CONFIG.skills.map(s => `<span class="chip">${esc(s)}</span>`).join("");
+
+    $("projects-list").innerHTML = CONFIG.projects.map(p => `
+      <article class="card">
+        <span class="meta">${esc(p.year)} · ${esc(p.tags)}</span>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.description)}</p>
+        <div class="links">
+          ${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener">Demo ↗</a>` : ""}
+          ${p.repo ? `<a href="${esc(p.repo)}" target="_blank" rel="noopener">Kode ↗</a>` : ""}
+        </div>
+      </article>`).join("");
+
+    $("experience-list").innerHTML = CONFIG.experience.map(e => `
+      <div class="item">
+        <span class="when">${esc(e.when)}</span>
+        <div>
+          <h3>${esc(e.role)} — ${esc(e.place)}</h3>
+          <p>${esc(e.detail)}</p>
+        </div>
+      </div>`).join("");
+
+    $("contact-list").innerHTML = CONFIG.contact.map(c =>
+      `<div><span>${esc(c.label)}</span><a href="${esc(c.href)}" target="_blank" rel="noopener">${esc(c.value)}</a></div>`).join("");
+
+    $("footer").textContent = CONFIG.footer;
+    document.title = CONFIG.name + " | Portofolio";
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+/* ---------- tema terang / gelap (disimpan di browser) ---------- */
+function applyTheme(t) {
+  if (t) document.documentElement.setAttribute("data-theme", t);
+  else document.documentElement.removeAttribute("data-theme");
+}
+try { applyTheme(localStorage.getItem("theme")); } catch (e) {}
+$("theme-btn").addEventListener("click", () => {
+  const now = document.documentElement.getAttribute("data-theme");
+  const dark = now ? now === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = dark ? "light" : "dark";
+  applyTheme(next);
+  try { localStorage.setItem("theme", next); } catch (e) {}
+});
+
+render();
+</script>
+</body>
+</html>
